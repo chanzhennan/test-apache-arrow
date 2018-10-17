@@ -21,3 +21,5 @@ endif()
 
 # simple tests
 add_subdirectory(simple_tests)
+# hep list tests
+add_subdirectory(hep_example)
