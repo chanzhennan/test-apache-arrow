@@ -109,8 +109,13 @@ std::shared_ptr<arrow::Array> to_arrow_array(std::vector<particles> batch) {
     arrow::PrettyPrint(*schema_final, {2}, &(std::cout));
     std::cout << std::endl;
 
+    // iterate through all the rows and convert row-based to apache arrow data model
     for (auto const& entry : batch) {
-        continue;
+        // for each particle of particles
+        vector_particles_builder->Append();
+        for (auto const& particle : entry) {
+            continue;
+        }
     }
 
     return result;
