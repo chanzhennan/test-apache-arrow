@@ -95,7 +95,18 @@ std::shared_ptr<arrow::Array> to_arrow_array(std::vector<particles> batch) {
     // some debuggin
     auto schema = std::make_shared<arrow::Schema>(particle_type->children());
     std::cout << std::endl;
-    arrow::PrettyPrint(*schema, {5}, &(std::cout));
+    arrow::PrettyPrint(*schema, {2}, &(std::cout));
+    std::cout << std::endl;
+
+    // vector of particles ListType
+    std::shared_ptr<arrow::ListBuilder> vector_particles_builder{
+        new arrow::ListBuilder{pool, particle_builder}
+    };
+    auto vector_particles_type = std::make_shared<arrow::ListType>(particle_type);
+
+    // some debugging
+    auto schema_final = std::make_shared<arrow::Schema>(vector_particles_type->children());
+    arrow::PrettyPrint(*schema_final, {2}, &(std::cout));
     std::cout << std::endl;
 
     for (auto const& entry : batch) {
