@@ -30,12 +30,14 @@ struct particle {
     std::tuple<T, T, T> position;
     vector4<T>          momentum;
     int                 charge;
+    std::vector<int>  some_properties;
 
     static particle<T> get_random() {
         return {
             {static_cast<T>(std::rand()), static_cast<T>(std::rand()), static_cast<T>(std::rand())},
             vector4<T>::get_random(),
-            static_cast<int>(std::rand())
+            static_cast<int>(std::rand()),
+            {1,2,3,4,5,6}
         };
     }
 };
