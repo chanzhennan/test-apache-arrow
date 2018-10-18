@@ -114,9 +114,61 @@ std::shared_ptr<arrow::Array> to_arrow_array(std::vector<particles> batch) {
         // for each particle of particles
         vector_particles_builder->Append();
         for (auto const& particle : entry) {
-            continue;
+            // for each particle
+            particle_builder->Append();
+
+            //
+            // particle fields
+            //
+            auto *position_builder = 
+                static_cast<arrow::StructBuilder*>(particle_builder->field_builder(0));
+            auto *momentum_builder = 
+                static_cast<arrow::StructBuilder*>(particle_builder->field_builder(1));
+            auto *charge_builder = 
+                static_cast<arrow::Int32Builder*>(particle_builder->field_builder(2));
+            auto *properties_builder = 
+                static_cast<arrow::ListBuilder*>(particle_builder->field_builder(3));
+
+            // position field
+            position_builder->Append();
+            auto const& [x, y, z] = particle.position;
+            static_cast<arrow::FloatBuilder*>(position_builder->field_builder(0))
+                ->Append(x);
+            static_cast<arrow::FloatBuilder*>(position_builder->field_builder(1))
+                ->Append(y);
+            static_cast<arrow::FloatBuilder*>(position_builder->field_builder(2))
+                ->Append(z);
+
+            // momentum field
+            momentum_builder->Append();
+            auto const& [x1, y1, z1, t1] = particle.momentum;
+            static_cast<arrow::FloatBuilder*>(momentum_builder->field_builder(0))
+                ->Append(x1);
+            static_cast<arrow::FloatBuilder*>(momentum_builder->field_builder(1))
+                ->Append(y1);
+            static_cast<arrow::FloatBuilder*>(momentum_builder->field_builder(2))
+                ->Append(z1);
+            static_cast<arrow::FloatBuilder*>(momentum_builder->field_builder(3))
+                ->Append(t1);
+
+            // charge field
+            charge_builder->Append(particle.charge);
+
+            // some_propoerties field
+            properties_builder->Append();
+            auto *properties_values_builder = 
+                static_cast<arrow::Int32Builder*>(properties_builder->value_builder());
+            properties_values_builder->AppendValues(
+                particle.some_properties.data(), particle.some_properties.size(), 
+                nullptr);
         }
     }
+
+    // done building an arrow array
+    vector_particles_builder->Finish(&result);
+
+    // debugging
+    arrow::PrettyPrint(*result, {2}, &(std::cout));
 
     return result;
 }
