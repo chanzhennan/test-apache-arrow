@@ -179,27 +179,77 @@ std::vector<particles> to_row_based(std::shared_ptr<arrow::Array> const& array) 
     auto const* particles_values_array = static_cast<arrow::StructArray*>(vector_particles_array->values().get());
     auto particles_offsets_buffer = vector_particles_array->value_offsets();
     auto const *raw_particles_offsets = reinterpret_cast<uint32_t const*>(particles_offsets_buffer->data());
+
+    // particle struct fields' arrays
+    auto const *position_array = static_cast<arrow::StructArray*>(particles_values_array->field(0).get());
+    auto const *momentum_array = static_cast<arrow::StructArray*>(particles_values_array->field(1).get());
+    auto const *charge = static_cast<arrow::Int32Array*>(particles_values_array->field(2).get());
+    auto const *some_properties = static_cast<arrow::ListArray*>(particles_values_array->field(3).get());
+
+    // position fields' arrays
+    auto const *position_x_array = static_cast<arrow::FloatArray*>(position_array->field(0).get());
+    auto const *position_y_array = static_cast<arrow::FloatArray*>(position_array->field(1).get());
+    auto const *position_z_array = static_cast<arrow::FloatArray*>(position_array->field(2).get());
+
+    // momentum fields' arrays
+    auto const *momentum_x_array = static_cast<arrow::FloatArray*>(momentum_array->field(0).get());
+    auto const *momentum_y_array = static_cast<arrow::FloatArray*>(momentum_array->field(1).get());
+    auto const *momentum_z_array = static_cast<arrow::FloatArray*>(momentum_array->field(2).get());
+    auto const *momentum_t_array = static_cast<arrow::FloatArray*>(momentum_array->field(3).get());
+
+    auto const* raw_properties_offsets = some_properties->raw_value_offsets();
+    auto const *properties_values_array = static_cast<arrow::Int32Array*>(some_properties->values().get());
     
     // debugging
     std::cout << "arrow array size = " << array->length() << std::endl;
     std::cout << "arrow ofsets buffer size = " << particles_offsets_buffer->size() << std::endl;
     std::cout << "arrow offsets buffer capacity = " << particles_offsets_buffer->capacity() << std::endl;
 
+    // for each event (a la entry or row)
     for (int entry=0; entry < array->length(); ++entry) {
         particles v;
         std::cout << "raw[" << entry << "] = " << raw_particles_offsets[entry] << std::endl;
         std::cout << "Entry = " << entry << " number of particles per entry = " << 
             raw_particles_offsets[entry+1] - raw_particles_offsets[entry] << std::endl;
 
-        // extract 
-
+        // for each particle 
         for (int j=raw_particles_offsets[entry]; j<raw_particles_offsets[entry+1]; j++) {
+            hep::particle<float> particle {
+                // build position
+                {
+                    position_x_array->raw_values()[j], position_y_array->raw_values()[j],
+                    position_y_array->raw_values()[j]
+                },
+                // build momentum
+                {
+                     momentum_x_array->raw_values()[j], momentum_y_array->raw_values()[j],
+                     momentum_z_array->raw_values()[j], momentum_t_array->raw_values()[j]
+                },
+                // charge
+                charge->raw_values()[j],
+                //std::vector<int>{5, 6, 7}
+                // list of some properties
+                std::vector<int>{
+                    &properties_values_array->raw_values()[raw_properties_offsets[j]], 
+                    &properties_values_array->raw_values()[raw_properties_offsets[j+1]]
+                }
+            };
+
+            v.push_back(particle);
         }
 
         result.push_back(v);
     }
 
     return result;
+}
+
+void print_row_based(std::vector<particles> const& vs) {
+    for (auto const& v : vs) {
+        for (auto const& p : v) {
+            std::cout << p << std::endl;
+        }
+    }
 }
 
 int main(int argc, char **argv) {
@@ -218,4 +268,7 @@ int main(int argc, char **argv) {
     arrow::PrettyPrint(*arrow_based_batch, {2}, &(std::cout));
 
     auto row_based_batch_back = to_row_based(arrow_based_batch);
+
+    // debug the row based 
+    print_row_based(row_based_batch_back);
 }
