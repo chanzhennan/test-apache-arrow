@@ -8,10 +8,11 @@
 #include <arrow/api.h>
 
 using particles = std::vector<hep::particle<float>> ;
-std::vector<particles> generate(int num_entries, int num_particles) {
+std::vector<particles> generate(int num_entries, int max_num_particles) {
     std::vector<particles> batch;
     for (int i=0; i<num_entries; ++i) {
         particles ps;
+        int num_particles = std::rand() % max_num_particles;
         for (int j=0; j<num_particles; ++j) {
             ps.push_back(hep::particle<float>::get_random());
         }
@@ -167,8 +168,36 @@ std::shared_ptr<arrow::Array> to_arrow_array(std::vector<particles> batch) {
     // done building an arrow array
     vector_particles_builder->Finish(&result);
 
+    return result;
+}
+
+std::vector<particles> to_row_based(std::shared_ptr<arrow::Array> const& array) {
+    std::vector<particles> result;
+
+    // get at a single entry level
+    auto const* vector_particles_array = static_cast<arrow::ListArray*>(array.get());
+    auto const* particles_values_array = static_cast<arrow::StructArray*>(vector_particles_array->values().get());
+    auto particles_offsets_buffer = vector_particles_array->value_offsets();
+    auto const *raw_particles_offsets = reinterpret_cast<uint32_t const*>(particles_offsets_buffer->data());
+    
     // debugging
-    arrow::PrettyPrint(*result, {2}, &(std::cout));
+    std::cout << "arrow array size = " << array->length() << std::endl;
+    std::cout << "arrow ofsets buffer size = " << particles_offsets_buffer->size() << std::endl;
+    std::cout << "arrow offsets buffer capacity = " << particles_offsets_buffer->capacity() << std::endl;
+
+    for (int entry=0; entry < array->length(); ++entry) {
+        particles v;
+        std::cout << "raw[" << entry << "] = " << raw_particles_offsets[entry] << std::endl;
+        std::cout << "Entry = " << entry << " number of particles per entry = " << 
+            raw_particles_offsets[entry+1] - raw_particles_offsets[entry] << std::endl;
+
+        // extract 
+
+        for (int j=raw_particles_offsets[entry]; j<raw_particles_offsets[entry+1]; j++) {
+        }
+
+        result.push_back(v);
+    }
 
     return result;
 }
@@ -180,8 +209,13 @@ int main(int argc, char **argv) {
     }
 
     int num_entries = std::stoi(argv[1]);
-    int num_particles = std::stoi(argv[2]);
+    int max_num_particles = std::stoi(argv[2]);
 
-    auto row_based_batch = generate(num_entries, num_particles);
+    auto row_based_batch = generate(num_entries, max_num_particles);
     auto arrow_based_batch = to_arrow_array(row_based_batch);
+    
+    // debugging
+    arrow::PrettyPrint(*arrow_based_batch, {2}, &(std::cout));
+
+    auto row_based_batch_back = to_row_based(arrow_based_batch);
 }
