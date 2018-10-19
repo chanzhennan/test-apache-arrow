@@ -47,7 +47,8 @@ struct particle {
 
 std::ostream& operator<<(std::ostream& os, std::vector<int> const& vs) {
     for (auto const& v : vs)
-        os << v;
+        os << v << ", ";
+    return os;
 }
 
 std::ostream& operator<<(std::ostream& os, hep::particle<float> const& p) {
@@ -57,6 +58,7 @@ std::ostream& operator<<(std::ostream& os, hep::particle<float> const& p) {
     os << "position: " << x << ", " << y << ", " << z << "\n";
     os << "momentum: " << x1 << ", " << y1 << ", " << z1 << ", " << t1 << "\n";
     os << "charge: " << p.charge << "\n";
+    os << "properties: " << p.some_properties << "\n";
     return os;
 }
 
