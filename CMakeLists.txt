@@ -5,7 +5,7 @@ message("*** project test-apache-arrow ***")
 project(test-apache-arrow LANGUAGES CXX)
 
 # extend module path
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
 
 find_package(Arrow)
@@ -23,3 +23,5 @@ endif()
 add_subdirectory(simple_tests)
 # hep list tests
 add_subdirectory(hep_example)
+# root arrow stuff
+add_subdirectory(root-arrow)
