@@ -19,7 +19,7 @@ endif()
 if (ROOT_FOUND)
     # generate dictionaries with rootcling
     ROOT_GENERATE_DICTIONARY(G__RArrowInterfaceDictionaries
-        ${PROJECT_SOURCE_DIR}/root-arrow/include/RArrowInterface.hpp
+        ${PROJECT_SOURCE_DIR}/root-arrow/src/RArrowInterface.cpp
         LINKDEF ${PROJECT_SOURCE_DIR}/root-arrow/LinkDef.h
     )
     add_library(RArrowDictionaries SHARED G__RArrowInterfaceDictionaries.cxx)

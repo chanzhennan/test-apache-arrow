@@ -7,13 +7,16 @@
 #include "RArrowInterface.hpp"
 
 int main(int argc, char **argv) {
-    TFile *f = new TFile("test.root", "recreate");
+    std::unique_ptr<TFile> f{new TFile("test.root", "recreate")};
 
     // create an interface
-    std::unique_ptr<ROOT::RArrowInterface> ptr {new ROOT::RArrowInterface{1,2,3}};
+    ROOT::RArrowInterface interface{f.get()};
+    // interface{array};
+    // interface
+//    interface.dump_to(f);
 
     // write
-    f->WriteObject<ROOT::RArrowInterface>(ptr.get(), "test_interface");
+    f->WriteObject<ROOT::RArrowInterface>(&interface, "test_interface");
     f->Close();
 
     std::cout << "hello world" << std::endl;
