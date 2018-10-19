@@ -1,0 +1,198 @@
+-I
+/Users/vk/software/root_home/build/include
+-I
+/Users/vk/software/root_home/build/etc
+-I
+/Users/vk/software/tbb/tbb2017_20170604oss/include
+-iquote
+.
+-cxx-isystem
+/Library/Developer/CommandLineTools/usr/include/c++/v1
+-resource-dir
+/Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0
+-nostdinc++
+-stdlib=libc++
+
+
+Parsed:
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__config
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__debug
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__functional_base
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__nullptr
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__string
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__tuple
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/__undef_macros
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/algorithm
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/atomic
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cassert
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cctype
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cstddef
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cstdint
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cstdio
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cstdlib
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cstring
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/ctype.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cwchar
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/cwctype
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/exception
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/initializer_list
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/iosfwd
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/iterator
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/limits
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/memory
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/new
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/stddef.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/stdexcept
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/stdint.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/stdio.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/stdlib.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/string
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/string.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/string_view
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/tuple
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/type_traits
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/typeinfo
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/utility
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/wchar.h
+ /Library/Developer/CommandLineTools/usr/include/c++/v1/wctype.h
+ /Users/vk/software/root_home/build/etc/cling/Interpreter/RuntimeUniverse.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/__stddef_max_align_t.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/assert.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/stdarg.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/stddef.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/stdint.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/stdlib.h
+ /Users/vk/software/root_home/build/etc/cling/lib/clang/5.0.0/include/wchar.h
+ /Users/vk/software/root_home/build/include/RConfigure.h
+ /Users/vk/software/root_home/build/include/ROOT/../RVersion.h
+ /Users/vk/software/root_home/build/include/ROOT/RConfig.h
+ /Users/vk/software/root_home/build/include/RtypesCore.h
+ /usr/include/Availability.h
+ /usr/include/AvailabilityInternal.h
+ /usr/include/AvailabilityMacros.h
+ /usr/include/TargetConditionals.h
+ /usr/include/__wctype.h
+ /usr/include/_ctype.h
+ /usr/include/_stdio.h
+ /usr/include/_types.h
+ /usr/include/_types/_intmax_t.h
+ /usr/include/_types/_uint16_t.h
+ /usr/include/_types/_uint32_t.h
+ /usr/include/_types/_uint64_t.h
+ /usr/include/_types/_uint8_t.h
+ /usr/include/_types/_uintmax_t.h
+ /usr/include/_types/_wctrans_t.h
+ /usr/include/_types/_wctype_t.h
+ /usr/include/_wctype.h
+ /usr/include/alloca.h
+ /usr/include/assert.h
+ /usr/include/ctype.h
+ /usr/include/i386/_mcontext.h
+ /usr/include/i386/_types.h
+ /usr/include/i386/endian.h
+ /usr/include/i386/signal.h
+ /usr/include/i386/types.h
+ /usr/include/libkern/_OSByteOrder.h
+ /usr/include/libkern/i386/_OSByteOrder.h
+ /usr/include/mach/i386/_structs.h
+ /usr/include/mach/machine/_structs.h
+ /usr/include/machine/_mcontext.h
+ /usr/include/machine/_types.h
+ /usr/include/machine/endian.h
+ /usr/include/machine/signal.h
+ /usr/include/machine/types.h
+ /usr/include/runetype.h
+ /usr/include/stdint.h
+ /usr/include/stdio.h
+ /usr/include/stdlib.h
+ /usr/include/string.h
+ /usr/include/strings.h
+ /usr/include/sys/_endian.h
+ /usr/include/sys/_posix_availability.h
+ /usr/include/sys/_pthread/_pthread_attr_t.h
+ /usr/include/sys/_pthread/_pthread_types.h
+ /usr/include/sys/_symbol_aliasing.h
+ /usr/include/sys/_types.h
+ /usr/include/sys/_types/_clock_t.h
+ /usr/include/sys/_types/_ct_rune_t.h
+ /usr/include/sys/_types/_dev_t.h
+ /usr/include/sys/_types/_id_t.h
+ /usr/include/sys/_types/_int16_t.h
+ /usr/include/sys/_types/_int32_t.h
+ /usr/include/sys/_types/_int64_t.h
+ /usr/include/sys/_types/_int8_t.h
+ /usr/include/sys/_types/_intptr_t.h
+ /usr/include/sys/_types/_mbstate_t.h
+ /usr/include/sys/_types/_mode_t.h
+ /usr/include/sys/_types/_null.h
+ /usr/include/sys/_types/_off_t.h
+ /usr/include/sys/_types/_pid_t.h
+ /usr/include/sys/_types/_rune_t.h
+ /usr/include/sys/_types/_sigaltstack.h
+ /usr/include/sys/_types/_sigset_t.h
+ /usr/include/sys/_types/_size_t.h
+ /usr/include/sys/_types/_ssize_t.h
+ /usr/include/sys/_types/_time_t.h
+ /usr/include/sys/_types/_timespec.h
+ /usr/include/sys/_types/_timeval.h
+ /usr/include/sys/_types/_u_int16_t.h
+ /usr/include/sys/_types/_u_int32_t.h
+ /usr/include/sys/_types/_u_int64_t.h
+ /usr/include/sys/_types/_u_int8_t.h
+ /usr/include/sys/_types/_ucontext.h
+ /usr/include/sys/_types/_uid_t.h
+ /usr/include/sys/_types/_uintptr_t.h
+ /usr/include/sys/_types/_va_list.h
+ /usr/include/sys/_types/_wchar_t.h
+ /usr/include/sys/_types/_wint_t.h
+ /usr/include/sys/appleapiopts.h
+ /usr/include/sys/cdefs.h
+ /usr/include/sys/resource.h
+ /usr/include/sys/signal.h
+ /usr/include/sys/stdio.h
+ /usr/include/sys/wait.h
+ /usr/include/time.h
+ /usr/include/wctype.h
+ <<< cling interactive line includer >>>
+ input_line_1
+ input_line_2
+ input_line_3
+ input_line_4
+
+
+Selected class -> std::__1::vector<hep::particle<float>, std::__1::allocator<hep::particle<float> > > for ROOT: vector<hep::particle<float> >
+Selected class -> hep::particle<float> for ROOT: hep::particle<float>
+Printing Selection Rules:
+	Class sel rule 0:
+		Selected (line -1): Yes
+		Attributes: 
+		name = std::vector<hep::particle<float>>
+		No field sel rules
+		No method sel rules
+	Class sel rule 1:
+		Selected (line -1): Yes
+		Attributes: 
+		name = hep::particle<float>
+		No field sel rules
+		No method sel rules
+	Class sel rule 2:
+		Selected (line -1): No
+		Attributes: 
+		pattern = ROOT::Meta::Selection*
+		No field sel rules
+		No method sel rules
+	Class sel rule 3:
+		Selected (line -1): No
+		Attributes: 
+		name = std::string
+		No field sel rules
+		No method sel rules
+	No function sel rules
+	No variable sel rules
+	No enum sel rules
+Class-headers Mapping:
+ o hep::particle<float> --> , payloadCode
+Class particle is a template specialisation. Treating its arguments.
+ o Template argument successfully treated. Arg fwd decl: 
+Restoring files in temporary file catalog:
+out_particle.cpp_tmp_81241 --> out_particle.cpp
