@@ -13,6 +13,8 @@ public:
     RArrowInterface(TDirectory *dir);
     virtual ~RArrowInterface();
 
+    friend RLinkBuilderVisitor;
+
 private:
     int x, y, z;
     TDirectory *dir; //! reference to the directory

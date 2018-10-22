@@ -10,7 +10,8 @@ int main(int argc, char **argv) {
     std::unique_ptr<TFile> f{new TFile("test.root", "recreate")};
 
     // create an interface
-    ROOT::RArrowInterface interface{f.get()};
+    ROOT::RArrowInterface interface{*f};
+    //interface.write_array(arr);
     // interface{array};
     // interface
 //    interface.dump_to(f);
