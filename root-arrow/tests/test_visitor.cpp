@@ -7,7 +7,9 @@
 // arrow stuff
 #include <arrow/api.h>
 
-#include "RArrayVisitor.hpp"
+// root
+#include "RArrowInterface.hpp"
+#include "TFile.h"
 
 using particles = std::vector<hep::particle<float>> ;
 std::vector<particles> generate(int num_entries, int max_num_particles) {
@@ -254,6 +256,38 @@ void print_row_based(std::vector<particles> const& vs) {
     }
 }
 
+void test_write(std::shared_ptr<arrow::Array> const& array) {
+    // root stuff
+    std::unique_ptr<TFile> f{new TFile("test.root", "recreate")};
+
+    // root - arrow interface
+    ROOT::RArrowInterface interface{&*f};
+    std::cout << std::endl;
+    interface.WriteArray(array);
+
+    // write the meta/linking record
+    f->WriteObject<ROOT::RArrowInterface>(&interface, "root_arrow_interface");
+    f->Close();
+}
+
+void print_link(ROOT::RLink const& link, std::string const& indent, std::string const& indent_symbol) {
+    std::cout << indent << link.atype_name << "\n";
+    std::cout << indent << link.record_position << "\n";
+    for (auto const& child : link.children)
+        print_link(child, indent + indent_symbol, indent_symbol);
+}
+
+void test_read() {
+    std::unique_ptr<TFile> f{new TFile{"test.root"}};
+
+    //ROOT::RArrowInterface *ptr = nullptr
+    auto ptr = static_cast<ROOT::RArrowInterface*>(f->Get("root_arrow_interface"));
+    auto const& top_link = ptr->TopLink();
+    print_link(top_link, "", "\t\t");
+
+    f->Close();
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         std::cout << "wrong number of cli arguments" << std::endl;
@@ -268,14 +302,12 @@ int main(int argc, char **argv) {
     
     // debugging
     arrow::PrettyPrint(*arrow_based_batch, {2}, &(std::cout));
-
-    // my visitor
-    ROOT::RArrayVisitor visitor;
-    std::cout << std::endl;
-    arrow_based_batch->Accept(&visitor);
-
+    
     auto row_based_batch_back = to_row_based(arrow_based_batch);
 
     // debug the row based 
     print_row_based(row_based_batch_back);
+
+    test_write(arrow_based_batch);
+    test_read();
 }

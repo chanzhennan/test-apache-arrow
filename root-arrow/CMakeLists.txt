@@ -22,13 +22,16 @@ if (ROOT_FOUND)
         ${PROJECT_SOURCE_DIR}/root-arrow/src/RArrowInterface.cpp
         LINKDEF ${PROJECT_SOURCE_DIR}/root-arrow/LinkDef.h
     )
-    add_library(RArrowDictionaries SHARED G__RArrowInterfaceDictionaries.cxx)
-    target_link_libraries(RArrowDictionaries ${ROOT_LIBRARIES})
+#    add_library(RArrowDictionaries SHARED G__RArrowInterfaceDictionaries.cxx)
+#    target_link_libraries(RArrowDictionaries ${ROOT_LIBRARIES})
 
     # compile library
-    file (GLOB SOURCES src/*.cpp)
-    add_library(root_arrow SHARED ${SOURCES})
-    target_link_libraries(root_arrow ${ROOT_LIBRARIES} RArrowDictionaries ${ARROW_SHARED_LIB})
+    #file (GLOB SOURCES src/*.cpp)
+    set(SOURCES 
+        src/RVisitors.cpp
+    )
+    add_library(root_arrow SHARED ${SOURCES} G__RArrowInterfaceDictionaries.cxx)
+    target_link_libraries(root_arrow ${ROOT_LIBRARIES} ${ARROW_SHARED_LIB})
 
     # compile tests
     file (GLOB TESTS tests/*.cpp)

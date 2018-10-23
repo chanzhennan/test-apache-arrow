@@ -6,9 +6,11 @@
 
 namespace ROOT {
 
+class RArrowInterface;
+
 class RLinkBuilderVisitor : public arrow::ArrayVisitor {
 public:
-    RLinkBuilderVisitor(RArrowInterface const&);
+    RLinkBuilderVisitor(RArrowInterface &);
     ~RLinkBuilderVisitor() = default;
 
     arrow::Status Visit(const arrow::NullArray& array) override;
@@ -40,7 +42,7 @@ public:
     arrow::Status Visit(const arrow::DictionaryArray& array) override;
 
 private:
-    RArrowInterface const& interface;
+    RArrowInterface &interface;
 };
 
 class RArrayVisitor : public arrow::ArrayVisitor {
