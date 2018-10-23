@@ -56,6 +56,9 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::Int32Array& array) {
     auto current_link = interface.current_link;
     current_link->atype_name = array.type()->name();
     current_link->record_position = -1;
+
+    // create a record for this node
+//    auto record = new RLinkRecord{interface.dir};
     
     return arrow::Status::OK();
 }

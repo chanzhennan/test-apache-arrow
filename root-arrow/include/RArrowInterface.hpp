@@ -34,7 +34,6 @@ public:
     friend RLinkBuilderVisitor;
 
 private:
-    int x, y, z;
     RLink top_link;
     RLink *current_link; //! ptr to the current link
     TDirectory *dir; //! reference to the directory
