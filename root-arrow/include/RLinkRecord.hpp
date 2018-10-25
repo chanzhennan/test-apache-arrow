@@ -5,17 +5,17 @@
 
 namespace ROOT {
 
-//////////////////////////////////////////////////////////////////////////
-//
-// RLinkRecord - a true record on disk
-//   - key (through inheritance)
-//   - buffer 
-//
-//////////////////////////////////////////////////////////////////////////
-
+/*
+ * a record class
+ *   - key
+ *   - binary buffer
+ */
 class RLinkRecord : public TKey {
 public:
-    RLinkRecord(std::string const& name, TDirectory *);
+    RLinkRecord();
+    RLinkRecord(std::string const& name, uint32_t size, TDirectory *);
+
+    ClassDef(RLinkRecord, 1);
 
 protected:
 };

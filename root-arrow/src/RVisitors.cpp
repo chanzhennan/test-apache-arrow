@@ -2,6 +2,7 @@
 
 #include "RVisitors.hpp"
 #include "RArrowInterface.hpp"
+#include "RLinkRecord.hpp"
 
 namespace ROOT {
 
@@ -55,9 +56,11 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::Int32Array& array) {
     // populate the link
     auto current_link = interface.current_link;
     current_link->atype_name = array.type()->name();
-    current_link->record_position = -1;
 
     // create a record for this node
+    auto record = new ROOT::RLinkRecord{"hello_record", 1000, interface.dir};
+    current_link->record_position = record->GetSeekKey();
+    record->WriteFile();
 //    auto record = new RLinkRecord{interface.dir};
     
     return arrow::Status::OK();
@@ -128,7 +131,11 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::FloatArray& array) {
     // populate the link
     auto current_link = interface.current_link;
     current_link->atype_name = array.type()->name();
-    current_link->record_position = -1;
+    
+    // create a record for this node
+    auto record = new ROOT::RLinkRecord{"hello_record", 1000, interface.dir};
+    current_link->record_position = record->GetSeekKey();
+    record->WriteFile();
     
     return arrow::Status::OK();
 }

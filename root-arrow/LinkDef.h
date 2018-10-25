@@ -7,5 +7,6 @@
 #pragma link C++ class ROOT::RLink+;
 #pragma link C++ class std::vector<ROOT::RLink>+;
 #pragma link C++ class ROOT::RArrowInterface+;
+#pragma link C++ class ROOT::RLinkRecord+;
 
 #endif
