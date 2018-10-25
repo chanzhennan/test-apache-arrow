@@ -13,7 +13,7 @@ namespace ROOT {
 class RLinkRecord : public TKey {
 public:
     RLinkRecord();
-    RLinkRecord(std::string const& name, uint32_t size, TDirectory *);
+    RLinkRecord(std::string const& name, uint64_t size, TDirectory *);
 
     ClassDef(RLinkRecord, 1);
 

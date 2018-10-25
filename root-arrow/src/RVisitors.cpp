@@ -58,11 +58,18 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::Int32Array& array) {
     current_link->atype_name = array.type()->name();
 
     // create a record for this node
-    auto record = new ROOT::RLinkRecord{"hello_record", 1000, interface.dir};
+    uint64_t size = array.length() * 4;
+    auto record = new ROOT::RLinkRecord{array.type()->name(), size, interface.dir};
     current_link->record_position = record->GetSeekKey();
+   
+    // fill the record with data from array
+    std::cout << "size = " << size << std::endl;
+    auto rbuffer = record->GetBuffer();
+    std::memcpy(rbuffer, reinterpret_cast<char const*>(array.raw_values()), size);
+
+    // explicitly perform I/O
     record->WriteFile();
-//    auto record = new RLinkRecord{interface.dir};
-    
+
     return arrow::Status::OK();
 }
 arrow::Status RLinkBuilderVisitor::Visit(const arrow::Int64Array& array) {
@@ -133,8 +140,15 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::FloatArray& array) {
     current_link->atype_name = array.type()->name();
     
     // create a record for this node
-    auto record = new ROOT::RLinkRecord{"hello_record", 1000, interface.dir};
+    uint64_t size = array.length() * 4;
+    auto record = new ROOT::RLinkRecord{array.type()->name(), size, interface.dir};
     current_link->record_position = record->GetSeekKey();
+
+    // fill the root buffer with arrow data
+    auto rbuffer = record->GetBuffer();
+    std::memcpy(rbuffer, reinterpret_cast<char const*>(array.raw_values()), size);
+
+    // explicitly perform I/O
     record->WriteFile();
     
     return arrow::Status::OK();

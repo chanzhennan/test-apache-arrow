@@ -8,7 +8,7 @@ RLinkRecord::RLinkRecord()
     : TKey{}
 {}
 
-RLinkRecord::RLinkRecord(std::string const& name, uint32_t size, TDirectory *dir)
+RLinkRecord::RLinkRecord(std::string const& name, uint64_t size, TDirectory *dir)
     : TKey{dir}
 {
     // analogous to TBasket
