@@ -269,7 +269,18 @@ arrow::Status RLinkBuilderVisitor::Visit(const arrow::ListArray& array) {
     // populate the node
     auto current_link = interface.current_link;
     current_link->atype_name = array.type()->name();
-    current_link->record_position = -1;
+
+    // create a record for this node
+    uint64_t size = (array.length()+1)* 4; // assume we do not store bitmap
+    auto record = new ROOT::RLinkRecord{array.type()->name(), size, interface.dir};
+    current_link->record_position = record->GetSeekKey();
+
+    // fill the root buffer with arrow data
+    auto rbuffer = record->GetBuffer();
+    std::memcpy(rbuffer, reinterpret_cast<char const*>(array.raw_value_offsets()), size);
+
+    // explicitly perform I/O
+    record->WriteFile();
 
     // add a child and traverse
     current_link->children.push_back({});
